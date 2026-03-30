@@ -230,6 +230,76 @@
         explanation: "<strong>Twint</strong> est un système de paiement, pas une néobanque — c'est même un partenaire de Yuh ! Neon, Revolut et N26 sont ses vrais concurrents."
       }
     ];
+
+    // ─── State ────────────────────────────────────────────────────
+    const STATE = {
+      screen: 'welcome',
+      currentQ: 0,
+      score: 0,
+      answered: false
+    };
+
+    function setState(patch) {
+      Object.assign(STATE, patch);
+      render();
+    }
+
+    // ─── Render dispatcher ────────────────────────────────────────
+    function render() {
+      const app = document.getElementById('app');
+      if (STATE.screen === 'welcome')  { renderWelcome(app); return; }
+      if (STATE.screen === 'question') { renderQuestion(app); return; }
+      if (STATE.screen === 'result')   { renderResult(app); return; }
+    }
+
+    // ─── Welcome screen ───────────────────────────────────────────
+    function renderWelcome(app) {
+      const fill = document.getElementById('progress-bar-fill');
+      if (fill) fill.style.width = '0%';
+      app.innerHTML = `
+        <div class="card slide-in" style="text-align:center; padding: 3rem 2rem;">
+          <div class="font-display" style="font-size: clamp(4rem, 15vw, 7rem); color: var(--purple); letter-spacing: -2px; line-height: 1;">
+            Yuh
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--grey); font-size: clamp(0.95rem, 2.5vw, 1.1rem);">
+            Testez vos connaissances sur la néobanque suisse
+          </p>
+          <p style="margin-top: 0.5rem; color: var(--grey); font-size: 0.8rem; opacity: 0.6;">
+            10 questions · ~3 minutes
+          </p>
+          <button class="btn btn-primary" data-action="start" style="margin-top: 2rem; font-size: 1rem; padding: 1rem;">
+            Commencer le quiz →
+          </button>
+        </div>
+      `;
+    }
+
+    // ─── Event delegation ─────────────────────────────────────────
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const action = btn.dataset.action;
+      if (action === 'start')   { startQuiz(); }
+      if (action === 'answer')  { handleAnswer(parseInt(btn.dataset.index, 10)); }
+      if (action === 'next')    { nextQuestion(); }
+      if (action === 'restart') { restartQuiz(); }
+    });
+
+    function startQuiz() {
+      STATE.currentQ = 0;
+      STATE.score = 0;
+      STATE.answered = false;
+      STATE.screen = 'question';
+      render();
+    }
+
+    function restartQuiz() {
+      STATE.screen = 'welcome';
+      render();
+    }
+
+    // ─── Boot ─────────────────────────────────────────────────────
+    render();
   </script>
 </body>
 </html>
