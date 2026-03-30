@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yuh Questionnaire
 
-## Getting Started
+Un quiz interactif pour découvrir l'univers Yuh — l'app financière suisse simple et intuitive.
 
-First, run the development server:
+## 🎯 Aperçu
+
+Quiz de **10 questions** conçu pour tester les connaissances des utilisateurs sur Yuh et ses fonctionnalités. L'expérience est pensée pour être légère, engageante et fidèle à l'identité de marque Yuh : **simple, surprenante, empowering et dynamique**.
+
+### Fonctionnalités
+
+- ✅ Écran d'accueil avec branding Yuh
+- ✅ 10 questions à choix multiples
+- ✅ Feedback immédiat après chaque réponse
+- ✅ Animation de progression entre les questions
+- ✅ Écran de résultat avec profil personnalisé
+- ✅ Confettis pour les bons scores (≥7/10)
+- ✅ Design responsive (mobile-first)
+
+## 🛠️ Stack technique
+
+- **Framework** : Next.js 16 (App Router)
+- **UI** : React 19 + Tailwind CSS 4
+- **Langage** : TypeScript
+- **Fonts** : ProximaSoft (Medium + MediumIt)
+
+## 🚀 Démarrage rapide
 
 ```bash
+# Installer les dépendances
+npm install
+
+# Lancer le serveur de développement
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000) dans le navigateur.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Structure du projet
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/
+│   ├── components/
+│   │   └── QuizApp.tsx     # Composant principal du quiz
+│   ├── globals.css         # Styles globaux + theming
+│   ├── layout.tsx          # Layout racine
+│   └── page.tsx            # Page d'entrée
+├── lib/
+│   ├── quiz-data.ts        # Questions et tiers de score
+│   └── quiz-types.ts       # Types TypeScript
+├── public/
+│   └── fonts/              # Polices ProximaSoft
+└── brandbook.md            # Guide de marque Yuh
+```
 
-## Learn More
+## 🎨 Design tokens
 
-To learn more about Next.js, take a look at the following resources:
+| Variable     | Valeur    | Usage                    |
+|--------------|-----------|--------------------------|
+| `--orange`   | `#FA5B35` | Couleur CTA principale   |
+| `--bg`       | `#FFFFFF` | Fond                     |
+| `--card`     | `#F7F7F8` | Fond des cartes          |
+| `--text`     | `#1A1A1A` | Texte principal          |
+| `--grey`     | `#6B6B6B` | Texte secondaire         |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📜 Scripts disponibles
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Commande        | Description                        |
+|-----------------|------------------------------------|
+| `npm run dev`   | Serveur de développement           |
+| `npm run build` | Build de production                |
+| `npm run start` | Lancer le build de production      |
+| `npm run lint`  | Vérification ESLint                |
 
-## Deploy on Vercel
+## 📖 Ressources
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Brandbook Yuh](./brandbook.md) — Guide de tonalité et écriture
+- [Next.js Documentation](https://nextjs.org/docs)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Projet réalisé dans le cadre du **Projet d'Intégration** — HES-SO 3ème année.
