@@ -156,6 +156,7 @@
   </style>
 </head>
 <body>
+  <div id="progress-bar-track"><div id="progress-bar-fill"></div></div>
   <div id="app"></div>
   <script>
     const QUESTIONS = [
@@ -292,6 +293,97 @@
     function restartQuiz() {
       STATE.screen = 'welcome';
       render();
+    }
+
+    // ─── Question screen ──────────────────────────────────────────
+    function renderQuestion(app) {
+      const q = QUESTIONS[STATE.currentQ];
+      const num = STATE.currentQ + 1;
+
+      // Update progress bar
+      const fill = document.getElementById('progress-bar-fill');
+      if (fill) fill.style.width = (num / QUESTIONS.length * 100) + '%';
+
+      const optionsHTML = q.options.map((opt, i) => `
+        <button class="btn" data-action="answer" data-index="${i}">
+          ${opt}
+        </button>
+      `).join('');
+
+      app.innerHTML = `
+        <div style="width:100%; max-width:540px;">
+          <p style="color:var(--grey); font-size:0.8rem; margin-bottom:1rem; letter-spacing:0.05em; text-transform:uppercase;">
+            Question ${num} / ${QUESTIONS.length}
+          </p>
+          <div class="card slide-in" id="question-card">
+            <p class="font-display" style="font-size:clamp(1.05rem, 3vw, 1.3rem); line-height:1.45; margin-bottom:0.25rem;">
+              ${q.q}
+            </p>
+            <div class="options" id="options-list">
+              ${optionsHTML}
+            </div>
+            <div id="feedback-zone"></div>
+            <div id="next-zone"></div>
+          </div>
+        </div>
+      `;
+
+      STATE.answered = false;
+    }
+
+    // ─── Answer handling ──────────────────────────────────────────
+    function handleAnswer(selectedIndex) {
+      if (STATE.answered) return;
+      STATE.answered = true;
+
+      const q = QUESTIONS[STATE.currentQ];
+      const isCorrect = selectedIndex === q.correct;
+      if (isCorrect) STATE.score++;
+
+      // Lock and style all buttons
+      const buttons = document.querySelectorAll('#options-list .btn');
+      buttons.forEach((btn, i) => {
+        btn.classList.add('locked');
+        if (i === q.correct) {
+          btn.classList.add('correct');
+          btn.textContent = '✓ ' + q.options[i];
+        } else if (i === selectedIndex && !isCorrect) {
+          btn.classList.add('wrong');
+          btn.textContent = '✗ ' + q.options[i];
+        }
+      });
+
+      // Show feedback
+      const feedbackZone = document.getElementById('feedback-zone');
+      feedbackZone.innerHTML = `
+        <div class="feedback">
+          <strong>${isCorrect ? '✓ Bonne réponse !' : '✗ Pas tout à fait...'}</strong><br/>
+          ${q.explanation}
+        </div>
+      `;
+
+      // Show next button
+      const nextZone = document.getElementById('next-zone');
+      const isLast = STATE.currentQ === QUESTIONS.length - 1;
+      nextZone.innerHTML = `
+        <div class="next-wrap">
+          <button class="btn btn-primary" data-action="next">
+            ${isLast ? 'Voir mes résultats →' : 'Question suivante →'}
+          </button>
+        </div>
+      `;
+    }
+
+    // ─── Advance question ─────────────────────────────────────────
+    function nextQuestion() {
+      if (STATE.currentQ < QUESTIONS.length - 1) {
+        STATE.currentQ++;
+        STATE.screen = 'question';
+        render();
+      } else {
+        STATE.screen = 'result';
+        render();
+      }
     }
 
     // ─── Boot ─────────────────────────────────────────────────────
