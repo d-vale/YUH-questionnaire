@@ -158,7 +158,78 @@
 <body>
   <div id="app"></div>
   <script>
-    // JS goes here in Task 2+
+    const QUESTIONS = [
+  {
+    q: "Yuh est régulé par la FINMA.",
+    type: "tf",
+    options: ["Vrai", "Faux"],
+    correct: 0,
+    explanation: "Yuh est une néobanque suisse soumise à la surveillance de la <strong>FINMA</strong>, le régulateur financier suisse, ce qui garantit la sécurité de vos fonds."
+  },
+  {
+    q: "Quelle entreprise est à l'origine de Yuh ?",
+    type: "mcq",
+    options: ["UBS & PostFinance", "Swissquote & PostFinance", "Revolut & SIX Group", "Raiffeisen & Neon"],
+    correct: 1,
+    explanation: "Yuh a été fondé conjointement par <strong>Swissquote et PostFinance</strong>. PostFinance s'est ensuite retiré du partenariat."
+  },
+  {
+    q: "Comment s'appelle le programme de fidélité de Yuh ?",
+    type: "mcq",
+    options: ["Yuhcoins", "SwissPoints", "Swisscoins", "NeoPay"],
+    correct: 2,
+    explanation: "Les <strong>Swisscoins</strong> sont la monnaie de fidélité de Yuh. Vous en gagnez à chaque achat avec votre carte Yuh."
+  },
+  {
+    q: "Yuh propose une application desktop (ordinateur).",
+    type: "tf",
+    options: ["Vrai", "Faux"],
+    correct: 1,
+    explanation: "Yuh est <strong>100 % mobile</strong> — aucune version desktop n'existe. Tout se gère depuis l'app sur smartphone."
+  },
+  {
+    q: "Quel type de carte de paiement Yuh propose-t-il ?",
+    type: "mcq",
+    options: ["Visa Classic", "Mastercard", "American Express", "Diners Club"],
+    correct: 1,
+    explanation: "Yuh fournit une <strong>Mastercard</strong> pour les paiements en Suisse et à l'international, sans frais cachés."
+  },
+  {
+    q: "On peut investir en cryptomonnaies sur Yuh.",
+    type: "tf",
+    options: ["Vrai", "Faux"],
+    correct: 0,
+    explanation: "Oui ! Yuh permet d'acheter et de vendre des <strong>cryptomonnaies</strong> directement depuis l'app, aux côtés des actions et ETF."
+  },
+  {
+    q: "Dans quelles langues est disponible l'app Yuh ?",
+    type: "mcq",
+    options: ["Français et allemand seulement", "Anglais, français et allemand", "Français, allemand et italien", "Toutes les langues de l'UE"],
+    correct: 2,
+    explanation: "Yuh couvre les <strong>trois régions linguistiques suisses</strong> : français, allemand et italien."
+  },
+  {
+    q: "Yuh intègre TWINT pour les paiements.",
+    type: "tf",
+    options: ["Vrai", "Faux"],
+    correct: 0,
+    explanation: "<strong>TWINT</strong> est intégré directement dans l'app Yuh pour les paiements mobiles en Suisse — la solution de paiement la plus utilisée du pays."
+  },
+  {
+    q: "Quel pilier de prévoyance Yuh propose-t-il ?",
+    type: "mcq",
+    options: ["1er pilier (AVS)", "2e pilier (LPP)", "3e pilier (3a)", "Aucun pilier"],
+    correct: 2,
+    explanation: "Yuh permet d'ouvrir un compte <strong>3e pilier (3a)</strong> pour épargner en vue de la retraite avec des avantages fiscaux."
+  },
+  {
+    q: "Parmi ces applications, laquelle n'est PAS une concurrente de Yuh en Suisse ?",
+    type: "mcq",
+    options: ["Neon", "Revolut", "N26", "Twint"],
+    correct: 3,
+    explanation: "<strong>Twint</strong> est un système de paiement, pas une néobanque — c'est même un partenaire de Yuh ! Neon, Revolut et N26 sont ses vrais concurrents."
+  }
+];
   </script>
 </body>
 </html>
