@@ -292,6 +292,9 @@
 
     function restartQuiz() {
       STATE.screen = 'welcome';
+      STATE.currentQ = 0;
+      STATE.score = 0;
+      STATE.answered = false;
       render();
     }
 
@@ -422,6 +425,8 @@
 
     // ─── Confetti ─────────────────────────────────────────────────
     function launchConfetti() {
+      const existing = document.getElementById('confetti-canvas');
+      if (existing) existing.remove();
       const canvas = document.createElement('canvas');
       canvas.id = 'confetti-canvas';
       canvas.width  = window.innerWidth;
