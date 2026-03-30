@@ -239,17 +239,13 @@
       answered: false
     };
 
-    function setState(patch) {
-      Object.assign(STATE, patch);
-      render();
-    }
-
     // ─── Render dispatcher ────────────────────────────────────────
     function render() {
       const app = document.getElementById('app');
       if (STATE.screen === 'welcome')  { renderWelcome(app); return; }
       if (STATE.screen === 'question') { renderQuestion(app); return; }
       if (STATE.screen === 'result')   { renderResult(app); return; }
+      console.warn('render(): unknown screen', STATE.screen);
     }
 
     // ─── Welcome screen ───────────────────────────────────────────
