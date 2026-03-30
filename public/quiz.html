@@ -327,8 +327,6 @@
           </div>
         </div>
       `;
-
-      STATE.answered = false;
     }
 
     // ─── Answer handling ──────────────────────────────────────────
@@ -346,10 +344,10 @@
         btn.classList.add('locked');
         if (i === q.correct) {
           btn.classList.add('correct');
-          btn.textContent = '✓ ' + q.options[i];
+          btn.innerHTML = '✓ ' + q.options[i];
         } else if (i === selectedIndex && !isCorrect) {
           btn.classList.add('wrong');
-          btn.textContent = '✗ ' + q.options[i];
+          btn.innerHTML = '✗ ' + q.options[i];
         }
       });
 
@@ -378,6 +376,7 @@
     function nextQuestion() {
       if (STATE.currentQ < QUESTIONS.length - 1) {
         STATE.currentQ++;
+        STATE.answered = false;
         STATE.screen = 'question';
         render();
       } else {
