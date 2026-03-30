@@ -28,9 +28,9 @@
       --bg:         #FFFFFF;
       --card:       #F7F7F8;
       --border:     #E2E2E5;
-      --purple:     #6C47FF;
-      --purple-dim: #5835DB;
-      --purple-glow: rgba(108, 71, 255, 0.20);
+      --purple:     #FA5B35;
+      --purple-dim: #FA5B35;
+      --purple-glow: rgba(250, 91, 53, 0.20);
       --text:       #1A1A1A;
       --grey:       #6B6B6B;
       --grey-dim:   rgba(100,100,100,0.5);
@@ -67,6 +67,68 @@
       overflow: hidden;
     }
 
+    /* ── Welcome gradient orbs (scoped via .welcome-active) ── */
+    #app.welcome-active {
+      background: #F3EFF9;
+      transition: background 0.4s ease;
+    }
+
+    #app.welcome-active::before,
+    #app.welcome-active::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #app.welcome-active::before {
+      /* Sky — haut-gauche */
+      width:  clamp(420px, 115vw, 700px);
+      height: clamp(420px, 115vw, 700px);
+      background: radial-gradient(circle at center,
+        rgba(148, 194, 223, 1.0)  0%,
+        rgba(100, 160, 205, 0.5) 30%,
+        rgba(230, 222, 240, 0.45) 65%,
+        transparent 82%
+      );
+      filter: blur(90px);
+      top: -20%; left: -25%;
+      animation: orbDrift1 14s ease-in-out infinite;
+    }
+
+    #app.welcome-active::after {
+      /* Pearl — bas-droite */
+      width:  clamp(380px, 105vw, 660px);
+      height: clamp(380px, 105vw, 660px);
+      background: radial-gradient(circle at center,
+        rgba(204, 177, 218, 1.0)  0%,
+        rgba(230, 222, 240, 0.80) 40%,
+        rgba(255, 255, 255, 0.20) 68%,
+        transparent 82%
+      );
+      filter: blur(60px);
+      bottom: -15%; right: -20%;
+      animation: orbDrift2 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbDrift1 {
+      0%   { transform: translate(0,    0)   scale(1);    }
+      30%  { transform: translate(8%,  12%)  scale(1.06); }
+      60%  { transform: translate(-4%, 18%)  scale(0.97); }
+      100% { transform: translate(0,    0)   scale(1);    }
+    }
+
+    @keyframes orbDrift2 {
+      0%   { transform: translate(0,    0)   scale(1);    }
+      40%  { transform: translate(-10%, -8%) scale(1.08); }
+      100% { transform: translate(4%,  -14%) scale(0.95); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #app.welcome-active::before,
+      #app.welcome-active::after { animation: none; }
+    }
 
     .screen-content {
       position: relative;
@@ -83,20 +145,22 @@
     }
 
     .wordmark {
-      font-size: clamp(6.5rem, 22vw, 11rem);
-      color: var(--purple);
-      letter-spacing: -4px;
-      line-height: 0.9;
       opacity: 0;
       transform: translateY(12px);
       animation: fadeUp 500ms ease-out 0ms forwards;
+    }
+    .wordmark img {
+      width: clamp(180px, 55vw, 340px);
+      height: auto;
+      display: block;
+      filter: none;
     }
 
     .welcome-tagline {
       margin-top: 1.5rem;
       font-size: clamp(1.1rem, 3.5vw, 1.4rem);
       font-style: italic;
-      color: var(--grey);
+      color: var(--text);
       opacity: 0;
       transform: translateY(10px);
       animation: fadeUp 450ms ease-out 200ms forwards;
@@ -105,7 +169,7 @@
     .welcome-meta {
       margin-top: 0.6rem;
       font-size: 0.78rem;
-      color: var(--grey-dim);
+      color: var(--grey);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       opacity: 0;
@@ -118,19 +182,6 @@
       opacity: 0;
       transform: translateY(8px);
       animation: fadeUp 400ms ease-out 520ms forwards;
-    }
-
-    /* Accent line decoration */
-    .welcome-line {
-      width: 48px;
-      height: 2px;
-      background: var(--purple);
-      margin-top: 2rem;
-      margin-bottom: 0;
-      opacity: 0;
-      transform: scaleX(0);
-      transform-origin: left;
-      animation: growLine 400ms ease-out 150ms forwards;
     }
 
     @keyframes fadeUp {
@@ -161,7 +212,7 @@
     }
     .btn:hover:not([disabled]):not(.locked) {
       border-color: var(--purple);
-      background: rgba(108, 71, 255, 0.08);
+      background: rgba(250, 91, 53, 0.08);
     }
     .btn:active:not(.locked) {
       transform: scale(0.96);
@@ -176,7 +227,7 @@
       padding: 1.1rem 1.5rem;
       border-radius: 10px;
     }
-    .btn-primary:hover { background: var(--purple-dim); border-color: var(--purple-dim); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--purple-dim); border-color: var(--purple-dim); color: #000000; }
     .btn-primary:active { transform: scale(0.96); }
 
     .btn.correct {
@@ -399,7 +450,7 @@
 
     @media (min-width: 640px) {
       #app { padding: 3rem 2rem; }
-      .wordmark { letter-spacing: -6px; }
+      .wordmark img { width: clamp(220px, 45vw, 380px); }
     }
   </style>
 </head>
@@ -510,11 +561,11 @@
 
     // ── Welcome ────────────────────────────────────────────
     function renderWelcome(el) {
+      document.getElementById('app').classList.add('welcome-active');
       el.innerHTML = `
         <div class="welcome-wrap">
-          <div class="wordmark">Yuh</div>
-          <div class="welcome-line"></div>
-          <p class="welcome-tagline">Deviens le boss de ton argent</p>
+          <div class="wordmark"><img src="/Yuh_Logo_Single-Claim-FR_Black_RGB.svg" alt="Yuh" /></div>
+          <p class="welcome-tagline">Yuh for you</p>
           <p class="welcome-meta">10 questions · sans prise de tête</p>
           <div class="welcome-cta">
             <button class="btn btn-primary" data-action="start">C'est parti →</button>
@@ -525,6 +576,7 @@
 
     // ── Question ───────────────────────────────────────────
     function renderQuestion(el, animate) {
+      document.getElementById('app').classList.remove('welcome-active');
       const q   = QUESTIONS[S.currentQ];
       const num = S.currentQ + 1;
       const pad = String(num).padStart(2, '0');
@@ -625,6 +677,7 @@
 
     // ── Result ─────────────────────────────────────────────
     function renderResult(el) {
+      document.getElementById('app').classList.remove('welcome-active');
       const s = S.score;
       const tier = SCORE_TIERS.find(t => s >= t.min && s <= t.max);
 
