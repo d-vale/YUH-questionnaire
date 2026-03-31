@@ -1,4 +1,4 @@
-export type Screen = 'welcome' | 'question' | 'result'
+export type Screen = 'welcome' | 'email' | 'question' | 'result'
 
 export interface QuizState {
   screen: Screen

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { QUESTIONS, SCORE_TIERS } from '@/lib/quiz-data'
 import type { Screen } from '@/lib/quiz-types'
@@ -13,14 +13,49 @@ export default function QuizApp() {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
   const [exiting, setExiting] = useState(false)
   const [glowing, setGlowing] = useState(false)
+  const [email, setEmail] = useState('')
+  const [optIn, setOptIn] = useState(true)
+  const [emailError, setEmailError] = useState(false)
+  const [history, setHistory] = useState<Array<{ currentQ: number; score: number; answered: boolean; selectedIdx: number | null }>>([]);
 
   function startQuiz() {
-    setScreen('question')
+    setScreen('email')
     setCurrentQ(0)
     setScore(0)
     setAnswered(false)
     setSelectedIdx(null)
     setExiting(false)
+    setHistory([])
+  }
+
+  function startFromEmail() {
+    const valid = email.trim().length > 0 && email.includes('@') && email.includes('.')
+    if (!valid) {
+      setEmailError(true)
+      return
+    }
+    setEmailError(false)
+    setScreen('question')
+  }
+
+  function handleBack() {
+    if (screen === 'email') {
+      setScreen('welcome')
+      return
+    }
+    if (screen === 'question') {
+      // Reset everything and return to welcome
+      setScreen('welcome')
+      setCurrentQ(0)
+      setScore(0)
+      setAnswered(false)
+      setSelectedIdx(null)
+      setGlowing(false)
+      setHistory([])
+      setEmail('')
+      setOptIn(true)
+      setEmailError(false)
+    }
   }
 
   function handleAnswer(idx: number) {
@@ -39,11 +74,13 @@ export default function QuizApp() {
     setExiting(true)
     setTimeout(() => {
       if (currentQ < QUESTIONS.length - 1) {
+        setHistory(h => [...h, { currentQ, score, answered, selectedIdx }])
         setCurrentQ(q => q + 1)
         setAnswered(false)
         setSelectedIdx(null)
         setGlowing(false)
       } else {
+        console.log('Lead:', { email, optIn })
         setScreen('result')
       }
       setExiting(false)
@@ -58,6 +95,7 @@ export default function QuizApp() {
     setSelectedIdx(null)
     setExiting(false)
     setGlowing(false)
+    setHistory([])
   }
 
   const q = QUESTIONS[currentQ]
@@ -101,6 +139,42 @@ export default function QuizApp() {
           </div>
         )}
 
+        {/* ── Email capture ────────────────────────────────── */}
+        {screen === 'email' && (
+          <div className="email-wrap slide-in">
+            <button className="back-btn" onClick={handleBack}>← Retour</button>
+            <h1 className="email-headline">Avant de commencer</h1>
+            <p className="email-subline">
+              Laisse-nous ton adresse e-mail pour rester en contact avec Yuh.
+            </p>
+            <div className="email-field-group">
+              <input
+                className={`email-input${emailError ? ' email-input--error' : ''}`}
+                type="email"
+                placeholder="ton@email.ch"
+                value={email}
+                onChange={e => { setEmail(e.target.value); setEmailError(false) }}
+                onKeyDown={e => e.key === 'Enter' && startFromEmail()}
+                autoComplete="email"
+              />
+              {emailError && (
+                <p className="email-error">Merci d&apos;entrer une adresse e-mail valide.</p>
+              )}
+            </div>
+            <label className="email-optin">
+              <input
+                type="checkbox"
+                checked={optIn}
+                onChange={e => setOptIn(e.target.checked)}
+              />
+              <span>J&apos;accepte de recevoir des offres et actualités de Yuh</span>
+            </label>
+            <button className="btn btn-primary" onClick={startFromEmail}>
+              Commencer le quiz →
+            </button>
+          </div>
+        )}
+
         {/* ── Question ─────────────────────────────────────── */}
         {screen === 'question' && (
           <div
@@ -112,6 +186,7 @@ export default function QuizApp() {
           >
             <div className="q-ghost-num">{pad}</div>
             <div className="q-body">
+              <button className="back-btn" onClick={handleBack}>← Retour à l'accueil</button>
               <div className="q-counter">
                 <span>{pad} / {String(QUESTIONS.length).padStart(2, '0')}</span>
                 <div className="q-counter-dots">

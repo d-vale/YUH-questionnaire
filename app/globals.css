@@ -329,6 +329,104 @@ html, body {
   animation: feedbackIn 280ms ease-out 80ms both;
 }
 
+/* ── Email capture screen ───────────────────────────── */
+.email-wrap {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.email-headline {
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+  color: var(--text);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.email-subline {
+  color: var(--grey);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.email-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.email-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-family: var(--font-proxima), system-ui, sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 180ms ease;
+  box-sizing: border-box;
+}
+.email-input::placeholder { color: var(--grey); }
+.email-input:focus { border-color: var(--orange); }
+.email-input--error { border-color: var(--red); }
+
+.email-error {
+  font-size: 0.85rem;
+  color: var(--red);
+  margin: 0;
+}
+
+.email-optin {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--grey);
+  cursor: pointer;
+  line-height: 1.4;
+}
+.email-optin input[type="checkbox"] {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  accent-color: var(--orange);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.email-skip {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-proxima), system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: var(--grey);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  transition: color 180ms ease;
+}
+.email-skip:hover { color: var(--text); }
+
+.back-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-proxima), system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--grey);
+  cursor: pointer;
+  text-align: left;
+  transition: color 180ms ease;
+}
+.back-btn:hover { color: var(--text); }
+
 /* ── Slide transitions ──────────────────────────────── */
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(36px); }
