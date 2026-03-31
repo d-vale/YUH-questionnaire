@@ -295,13 +295,17 @@ html, body {
   margin-top: 1.25rem;
   padding: 1rem 1.125rem;
   border-radius: 10px;
-  background: rgba(108, 71, 255, 0.06);
-  border: 1px solid rgba(108, 71, 255, 0.15);
+  background: rgba(97, 151, 175, 0.12);
+  border: 1px solid rgba(97, 151, 175, 0.35);
   font-size: 0.875rem;
   font-style: italic;
   color: var(--grey);
   line-height: 1.65;
   animation: feedbackIn 280ms ease-out forwards;
+}
+.feedback.feedback--wrong {
+  background: rgba(204, 177, 218, 0.15);
+  border: 1px solid rgba(204, 177, 218, 0.4);
 }
 .feedback strong {
   color: var(--text);

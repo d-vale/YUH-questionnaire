@@ -158,13 +158,13 @@ export default function QuizApp() {
           <div className="email-wrap slide-in">
             <h1 className="email-headline">Plus qu&apos;une étape !</h1>
             <p className="email-subline">
-              Laisse ton adresse e-mail pour découvrir ton résultat.
+              Laissez votre adresse e-mail pour découvrir votre résultat.
             </p>
             <div className="email-field-group">
               <input
                 className={`email-input${emailError ? ' email-input--error' : ''}`}
                 type="email"
-                placeholder="ton@email.ch"
+                placeholder="votre@email.ch"
                 value={email}
                 onChange={e => { setEmail(e.target.value); setEmailError(false) }}
                 onKeyDown={e => e.key === 'Enter' && submitEmail()}
@@ -235,7 +235,7 @@ export default function QuizApp() {
               </div>
 
               {answered && feedbackText && (
-                <div className="feedback">
+                <div className={`feedback${selectedIdx !== q?.correct ? ' feedback--wrong' : ''}`}>
                   <strong>{feedbackPrefix}</strong>{' '}
                   <span dangerouslySetInnerHTML={{ __html: feedbackText }} />
                 </div>

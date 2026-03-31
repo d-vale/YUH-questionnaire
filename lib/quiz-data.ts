@@ -6,7 +6,7 @@ export const QUESTIONS: Question[] = [
     type: "tf",
     options: ["Vrai", "Faux"],
     correct: 0,
-    feedbackOk:   "Exactement ! Tes fonds sont entre de bonnes mains 🇨🇭",
+    feedbackOk:   "Exactement ! Vos fonds sont entre de bonnes mains 🇨🇭",
     feedbackFail: "Pas cette fois — Yuh est bien sous la loupe de la FINMA, le régulateur financier suisse."
   },
   {
@@ -22,7 +22,7 @@ export const QUESTIONS: Question[] = [
     type: "mcq",
     options: ["Yuhcoins", "SwissPoints", "Swisscoins", "NeoPay"],
     correct: 2,
-    feedbackOk:   "Tu connais ta monnaie ! Les <strong>Swisscoins</strong> s'accumulent à chaque achat 💜",
+    feedbackOk:   "Vous connaissez votre monnaie ! Les <strong>Swisscoins</strong> s'accumulent à chaque achat 💜",
     feedbackFail: "C'est les <strong>Swisscoins</strong> ! Ils récompensent chaque coup de carte Yuh."
   },
   {
@@ -31,10 +31,10 @@ export const QUESTIONS: Question[] = [
     options: ["Vrai", "Faux"],
     correct: 1,
     feedbackOk:   "Exactement — Yuh c'est <strong>100 % mobile</strong>, le bureau c'est pour les autres 📱",
-    feedbackFail: "Nope — Yuh reste sur ton smartphone. Pas besoin d'ordi, tout est dans ta poche."
+    feedbackFail: "Nope — Yuh reste sur votre smartphone. Pas besoin d'ordi, tout est dans votre poche."
   },
   {
-    q: "Quel type de carte Yuh te propose-t-il ?",
+    q: "Quel type de carte Yuh vous propose-t-il ?",
     type: "mcq",
     options: ["Visa Classic", "Mastercard", "American Express", "Diners Club"],
     correct: 1,
@@ -42,7 +42,7 @@ export const QUESTIONS: Question[] = [
     feedbackFail: "C'est une <strong>Mastercard</strong> — acceptée partout dans le monde, sans mauvaises surprises."
   },
   {
-    q: "Tu peux investir en cryptos directement dans Yuh.",
+    q: "Vous pouvez investir en cryptos directement dans Yuh.",
     type: "tf",
     options: ["Vrai", "Faux"],
     correct: 0,
@@ -71,7 +71,7 @@ export const QUESTIONS: Question[] = [
     options: ["1er pilier (AVS)", "2e pilier (LPP)", "3e pilier (3a)", "Aucun pilier"],
     correct: 2,
     feedbackOk:   "Le <strong>3e pilier</strong> dans l'app — épargne retraite avec avantages fiscaux 💰",
-    feedbackFail: "C'est le <strong>3e pilier (3a)</strong> — idéal pour préparer ta retraite avec style."
+    feedbackFail: "C'est le <strong>3e pilier (3a)</strong> — idéal pour préparer votre retraite avec style."
   },
   {
     q: "Parmi ces apps, laquelle n'est PAS concurrente de Yuh ?",
@@ -85,7 +85,7 @@ export const QUESTIONS: Question[] = [
 
 export const SCORE_TIERS: ScoreTier[] = [
   { min: 0,  max: 3,  title: "Explore Yuh, tout commence ici",    sub: "L'aventure ne fait que commencer" },
-  { min: 4,  max: 6,  title: "Tu gères, continue comme ça",        sub: "Pas mal — encore quelques secrets à découvrir" },
-  { min: 7,  max: 9,  title: "Presque expert — encore un peu",     sub: "Tu touches au but, presque parfait" },
-  { min: 10, max: 10, title: "Expert Yuh. L'argent te remerciera", sub: "Score parfait — tu maîtrises tout 🏆" }
+  { min: 4,  max: 6,  title: "Vous gérez, continuez comme ça",        sub: "Pas mal — encore quelques secrets à découvrir" },
+  { min: 7,  max: 9,  title: "Presque expert — encore un peu",        sub: "Vous touchez au but, presque parfait" },
+  { min: 10, max: 10, title: "Expert Yuh. L'argent vous remerciera",  sub: "Score parfait — vous maîtrisez tout 🏆" }
 ]
