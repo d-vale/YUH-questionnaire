@@ -1,5 +1,7 @@
 # Yuh Questionnaire
 
+**Équipe DJMKEL**
+
 Un quiz interactif pour découvrir l'univers Yuh — l'app financière suisse simple et intuitive.
 
 ## 🎯 Aperçu
