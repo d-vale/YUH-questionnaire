@@ -19,7 +19,7 @@ export default function QuizApp() {
   const [history, setHistory] = useState<Array<{ currentQ: number; score: number; answered: boolean; selectedIdx: number | null }>>([]);
 
   function startQuiz() {
-    setScreen('email')
+    setScreen('question')
     setCurrentQ(0)
     setScore(0)
     setAnswered(false)
@@ -28,14 +28,29 @@ export default function QuizApp() {
     setHistory([])
   }
 
-  function startFromEmail() {
+  function submitEmail() {
     const valid = email.trim().length > 0 && email.includes('@') && email.includes('.')
     if (!valid) {
       setEmailError(true)
       return
     }
     setEmailError(false)
-    setScreen('question')
+    console.log('Lead:', { email, optIn })
+    setScreen('result')
+  }
+
+  function skipEmail() {
+    setScreen('welcome')
+    setCurrentQ(0)
+    setScore(0)
+    setAnswered(false)
+    setSelectedIdx(null)
+    setExiting(false)
+    setGlowing(false)
+    setHistory([])
+    setEmail('')
+    setOptIn(true)
+    setEmailError(false)
   }
 
   function handleBack() {
@@ -80,8 +95,7 @@ export default function QuizApp() {
         setSelectedIdx(null)
         setGlowing(false)
       } else {
-        console.log('Lead:', { email, optIn })
-        setScreen('result')
+        setScreen('email')
       }
       setExiting(false)
     }, 220)
@@ -142,10 +156,9 @@ export default function QuizApp() {
         {/* ── Email capture ────────────────────────────────── */}
         {screen === 'email' && (
           <div className="email-wrap slide-in">
-            <button className="back-btn" onClick={handleBack}>← Retour</button>
-            <h1 className="email-headline">Avant de commencer</h1>
+            <h1 className="email-headline">Plus qu&apos;une étape !</h1>
             <p className="email-subline">
-              Laisse-nous ton adresse e-mail pour rester en contact avec Yuh.
+              Laisse ton adresse e-mail pour découvrir ton résultat.
             </p>
             <div className="email-field-group">
               <input
@@ -154,7 +167,7 @@ export default function QuizApp() {
                 placeholder="ton@email.ch"
                 value={email}
                 onChange={e => { setEmail(e.target.value); setEmailError(false) }}
-                onKeyDown={e => e.key === 'Enter' && startFromEmail()}
+                onKeyDown={e => e.key === 'Enter' && submitEmail()}
                 autoComplete="email"
               />
               {emailError && (
@@ -169,8 +182,11 @@ export default function QuizApp() {
               />
               <span>J&apos;accepte de recevoir des offres et actualités de Yuh</span>
             </label>
-            <button className="btn btn-primary" onClick={startFromEmail}>
-              Commencer le quiz →
+            <button className="btn btn-primary" onClick={submitEmail}>
+              Voir mon résultat →
+            </button>
+            <button className="email-skip" onClick={skipEmail}>
+              Non merci, revenir à l&apos;accueil
             </button>
           </div>
         )}
@@ -186,7 +202,7 @@ export default function QuizApp() {
           >
             <div className="q-ghost-num">{pad}</div>
             <div className="q-body">
-              <button className="back-btn" onClick={handleBack}>← Retour à l'accueil</button>
+              <button className="back-btn" onClick={handleBack}>← Retour à l&apos;accueil</button>
               <div className="q-counter">
                 <span>{pad} / {String(QUESTIONS.length).padStart(2, '0')}</span>
                 <div className="q-counter-dots">
